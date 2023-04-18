@@ -1,9 +1,14 @@
 package com.anagraceTech;
 
 import com.anagraceTech.booking.CarBooking;
+import com.anagraceTech.booking.CarBookingDao;
 import com.anagraceTech.booking.CarBookingService;
 import com.anagraceTech.car.Car;
+import com.anagraceTech.car.CarDao;
+import com.anagraceTech.car.CarService;
 import com.anagraceTech.user.User;
+import com.anagraceTech.user.UserDao;
+import com.anagraceTech.user.UserFileDataAccessImpl;
 import com.anagraceTech.user.UserService;
 
 import java.util.Scanner;
@@ -13,8 +18,12 @@ public class Main {
 
     public static void main(String[] args) {
 
-        UserService userService = new UserService();
-        CarBookingService carBookingService = new CarBookingService();
+        UserDao userDao = new UserFileDataAccessImpl();
+        UserService userService = new UserService(userDao);
+        CarBookingDao carBookingDao = new CarBookingDao();
+        CarDao carDao = new CarDao();
+        CarService carService = new CarService(carDao);
+        CarBookingService carBookingService = new CarBookingService(carBookingDao, carService);
 
         Scanner scanner = new Scanner(System.in);
 
